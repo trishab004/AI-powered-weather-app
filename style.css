@@ -92,6 +92,16 @@ body {
   flex: 1;
   padding: 1rem;
   overflow-y: auto;
+  .typing {
+  font-style: italic;
+  color: #888;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
 }
 
 .chat-input {
