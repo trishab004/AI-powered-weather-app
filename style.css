@@ -1,1 +1,130 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Layout */
+body {
+  background: linear-gradient(to right top, #a1c4fd, #c2e9fb);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  flex-direction: column;
+}
+
+/* Weather Card */
+.weather-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.weather-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.weather-card p {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Chat Button */
+#chatBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #333;
+  color: white;
+  padding: 0.8rem 1rem;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  transition: 0.3s;
+}
+
+#chatBtn:hover {
+  background: #555;
+}
+
+/* Chatbot */
+#chatContainer {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 300px;
+  max-height: 400px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.hidden {
+  display: none;
+}
+
+.chat-header {
+  background: #333;
+  color: white;
+  padding: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ccc;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 0.8rem;
+  border: none;
+  outline: none;
+}
+
+.chat-input button {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .weather-card {
+    font-size: 0.9rem;
+    padding: 1rem;
+  }
+
+  #chatContainer {
+    width: 90%;
+    bottom: 100px;
+    right: 5%;
+  }
+}
 
