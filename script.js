@@ -25,7 +25,7 @@ function displayWeather(data) {
 }
 
 function fetchWeather(lat, lon) {
-  const apiKey = "YOUR_OPENWEATHER_API_KEY";
+  const apiKey = "df2dd78c3b60918acb820f0093f4e139";
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
   fetch(url)
     .then(res => res.json())
