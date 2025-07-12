@@ -8,6 +8,22 @@ CORS(app)
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")  # make sure key is set in Render
 
+@app.route('/chat', methods=['POST'])
+def chat_reply():
+    data = request.get_json()
+    user_message = data.get("message", "")
+    print("📩 Prompt received:", user_message)
+
+    # Very simple logic: generate a demo reply based on the message
+    if "what to wear" in user_message.lower():
+        temp_text = "It's hot today! Wear something light like cotton and drink plenty of water. 😎☀️"
+    elif "rain" in user_message.lower():
+        temp_text = "Looks like it might rain! Carry an umbrella and wear waterproof shoes. ☔"
+    else:
+        temp_text = "I'm just a demo bot right now, but I'm happy to help you based on the weather! 🌦️"
+
+    return jsonify({"reply": temp_text})
+
 @app.route('/')
 def home():
     return "🌤️ Trisha's Weather App Gemini Backend is Running!"
