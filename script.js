@@ -1,4 +1,5 @@
-// WEATHER FETCH
+let currentTemp = null; // store temperature
+
 const weatherCard = document.getElementById("weatherCard");
 
 function getWeatherEmoji(desc) {
@@ -12,20 +13,21 @@ function getWeatherEmoji(desc) {
 }
 
 function displayWeather(data) {
-  const temp = data.main.temp;
+  currentTemp = data.main.temp;
   const city = data.name;
   const desc = data.weather[0].description;
   const emoji = getWeatherEmoji(desc);
 
   weatherCard.innerHTML = `
-    <h2>${emoji} ${Math.round(temp)}°C - ${desc}</h2>
+    <h2>${emoji} ${Math.round(currentTemp)}°C - ${desc}</h2>
     <p>📍 ${city}</p>
   `;
 }
 
 function fetchWeather(lat, lon) {
-  const apiKey = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=YOUR_API_KEY";
-  fetch(apiKey)
+  const apiKey = "YOUR_OPENWEATHER_API_KEY";
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+  fetch(url)
     .then(res => res.json())
     .then(data => displayWeather(data))
     .catch(() => {
@@ -35,16 +37,14 @@ function fetchWeather(lat, lon) {
 
 navigator.geolocation.getCurrentPosition(
   position => {
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-    fetchWeather(lat, lon);
+    fetchWeather(position.coords.latitude, position.coords.longitude);
   },
   () => {
     weatherCard.innerHTML = "<h2>Location access denied 😞</h2>";
   }
 );
 
-// CHATBOT LOGIC
+// --- CHATBOT SECTION ---
 const chatBtn = document.getElementById("chatBtn");
 const chatContainer = document.getElementById("chatContainer");
 const closeChat = document.getElementById("closeChat");
@@ -55,16 +55,36 @@ const chatMessages = document.getElementById("chatMessages");
 chatBtn.onclick = () => chatContainer.classList.remove("hidden");
 closeChat.onclick = () => chatContainer.classList.add("hidden");
 
-sendBtn.onclick = () => {
+sendBtn.onclick = async () => {
   const msg = userInput.value.trim();
   if (!msg) return;
 
   addMessage("You", msg);
   userInput.value = "";
-  
-  setTimeout(() => {
-    addMessage("TrishaBot", "This is a dummy AI reply 🤖✨");
-  }, 800);
+
+  // Typing indicator
+  const typingDiv = document.createElement("div");
+  typingDiv.classList.add("typing");
+  typingDiv.innerText = "TrishaBot is typing...";
+  chatMessages.appendChild(typingDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  try {
+    const response = await fetch("https://your-render-backend-url.com/gemini", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        prompt: `Based on the current temperature ${currentTemp}°C, ${msg}`
+      })
+    });
+
+    const data = await response.json();
+    chatMessages.removeChild(typingDiv);
+    addMessage("TrishaBot", data.reply || "I’m not sure what to say 🤷‍♀️");
+  } catch (err) {
+    chatMessages.removeChild(typingDiv);
+    addMessage("TrishaBot", "Something went wrong 😢");
+  }
 };
 
 function addMessage(sender, text) {
