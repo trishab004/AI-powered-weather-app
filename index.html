@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather & ChatBot</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="weather-card" id="weatherCard">
+      <h2>Loading Weather... ☁️</h2>
+    </div>
+  </div>
+
+  <!-- Chat Button -->
+  <button id="chatBtn">💬</button>
+
+  <!-- Chatbot Window -->
+  <div id="chatContainer" class="hidden">
+    <div class="chat-header">
+      <h3>TrishaBot 🤖</h3>
+      <button id="closeChat">✖️</button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Say something..." />
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
