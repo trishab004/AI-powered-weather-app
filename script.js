@@ -53,7 +53,10 @@ const userInput = document.getElementById("userInput");
 const chatMessages = document.getElementById("chatMessages");
 
 chatBtn.onclick = () => chatContainer.classList.remove("hidden");
+const closeChat = document.getElementById("closeChat");
 closeChat.onclick = () => chatContainer.classList.add("hidden");
+
+// closeChat.onclick = () => chatContainer.classList.add("hidden");
 
 sendBtn.onclick = async () => {
   const msg = userInput.value.trim();
