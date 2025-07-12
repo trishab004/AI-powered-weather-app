@@ -76,7 +76,7 @@ chatForm.onsubmit = async (e) => {
     const promptToSend = `Based on the current temperature ${currentTemp}°C, ${msg}`;
     console.log("📨 Prompt to backend:", promptToSend); // 🔍 ADD THIS
 
-const response = await fetch("https://ai-powered-weather-app-5i4j.onrender.com/gemini", {
+const response = await fetch("https://ai-powered-weather-app-qbz1.onrender.com/gemini", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ prompt: promptToSend })
