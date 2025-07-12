@@ -79,7 +79,8 @@ chatForm.onsubmit = async (e) => {
 const response = await fetch("https://ai-powered-weather-app-qbz1.onrender.com/chat", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ prompt: promptToSend })
+  body: JSON.stringify({ message: promptToSend })
+
 });
 
     const data = await response.json();
