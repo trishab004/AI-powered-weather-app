@@ -48,32 +48,30 @@ navigator.geolocation.getCurrentPosition(
 const chatBtn = document.getElementById("chatBtn");
 const chatContainer = document.getElementById("chatContainer");
 const closeChat = document.getElementById("closeChat");
-const sendBtn = document.getElementById("sendBtn");
+const chatForm = document.getElementById("chatForm");
 const userInput = document.getElementById("userInput");
 const chatMessages = document.getElementById("chatMessages");
 
 chatBtn.onclick = () => chatContainer.classList.remove("hidden");
-const closeChat = document.getElementById("closeChat");
 closeChat.onclick = () => chatContainer.classList.add("hidden");
 
-// closeChat.onclick = () => chatContainer.classList.add("hidden");
-
-sendBtn.onclick = async () => {
+chatForm.onsubmit = async (e) => {
+  e.preventDefault();
   const msg = userInput.value.trim();
   if (!msg) return;
 
-  addMessage("You", msg);
+  addMessage("You", msg, "user-msg");
   userInput.value = "";
 
   // Typing indicator
   const typingDiv = document.createElement("div");
   typingDiv.classList.add("typing");
-  typingDiv.innerText = "WeatherBot is typing...";
+  typingDiv.innerText = "TrishaBot is typing...";
   chatMessages.appendChild(typingDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 
   try {
-    const response = await fetch("https://ai-powered-weather-app-5i4j.onrender.com", {
+    const response = await fetch("https://ai-powered-weather-app-5i4j.onrender.com/gemini", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -83,17 +81,17 @@ sendBtn.onclick = async () => {
 
     const data = await response.json();
     chatMessages.removeChild(typingDiv);
-    addMessage("TrishaBot", data.reply || "I’m not sure what to say 🤷‍♀️");
+    addMessage("TrishaBot", data.reply || "I’m not sure what to say 🤷‍♀️", "bot-msg");
   } catch (err) {
     chatMessages.removeChild(typingDiv);
-    addMessage("TrishaBot", "Something went wrong 😢");
+    addMessage("TrishaBot", "Something went wrong 😢", "bot-msg");
   }
 };
 
-function addMessage(sender, text) {
+function addMessage(sender, text, className) {
   const msgDiv = document.createElement("div");
-  msgDiv.innerHTML = `<strong>${sender}:</strong> ${text}`;
-  msgDiv.style.margin = "0.5rem 0";
+  msgDiv.classList.add(className);
+  msgDiv.textContent = text;
   chatMessages.appendChild(msgDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
