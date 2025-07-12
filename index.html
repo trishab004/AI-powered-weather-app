@@ -14,19 +14,22 @@
   </div>
 
   <!-- Chat Button -->
-  <button id="chatBtn">💬</button>
+  <button id="chatBtn" aria-label="Open chat">💬</button>
 
   <!-- Chatbot Window -->
-  <div id="chatContainer" class="hidden">
+  <div id="chatContainer" class="hidden" role="dialog" aria-modal="true" aria-labelledby="chatTitle">
     <div class="chat-header">
-      <h3>TrishaBot 🤖</h3>
-      <button id="closeChat">✖️</button>
+      <div>
+        <h3 id="chatTitle">WeatherBot 🤖</h3>
+        <small>Your friendly AI assistant</small>
+      </div>
+      <button id="closeChat" aria-label="Close chat">✖️</button>
     </div>
-    <div class="chat-messages" id="chatMessages"></div>
-    <div class="chat-input">
-      <input type="text" id="userInput" placeholder="Say something..." />
-      <button id="sendBtn">Send</button>
-    </div>
+    <div class="chat-messages" id="chatMessages" tabindex="0" aria-live="polite"></div>
+    <form id="chatForm" class="chat-input" autocomplete="off">
+      <input type="text" id="userInput" placeholder="Ask me anything..." required aria-label="Chat input" />
+      <button type="submit" id="sendBtn">Send</button>
+    </form>
   </div>
 
   <script src="script.js"></script>
