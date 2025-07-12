@@ -98,38 +98,6 @@ chatForm.onsubmit = async (e) => {
 
 
 
-  e.preventDefault();
-  const msg = userInput.value.trim();
-  if (!msg) return;
-
-  addMessage("You", msg, "user-msg");
-  userInput.value = "";
-
-  // Typing indicator
-  const typingDiv = document.createElement("div");
-  typingDiv.classList.add("typing");
-  typingDiv.innerText = "TrishaBot is typing...";
-  chatMessages.appendChild(typingDiv);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-
-  try {
-    const response = await fetch("https://ai-powered-weather-app-5i4j.onrender.com/gemini", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        prompt: `Based on the current temperature ${currentTemp}°C, ${msg}`
-      })
-    });
-
-    const data = await response.json();
-    chatMessages.removeChild(typingDiv);
-    addMessage("TrishaBot", data.reply || "I’m not sure what to say 🤷‍♀️", "bot-msg");
-  } catch (err) {
-    chatMessages.removeChild(typingDiv);
-    addMessage("TrishaBot", "Something went wrong 😢", "bot-msg");
-  }
-};
-
 function addMessage(sender, text, className) {
   const msgDiv = document.createElement("div");
   msgDiv.classList.add(className);
