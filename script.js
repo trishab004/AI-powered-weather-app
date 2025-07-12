@@ -60,6 +60,48 @@ chatForm.onsubmit = async (e) => {
   const msg = userInput.value.trim();
   if (!msg) return;
 
+  console.log("🟢 User message sent:", msg); // 🔍 ADD THIS
+  console.log("🌡️ Current temperature:", currentTemp); // 🔍 ADD THIS
+
+  addMessage("You", msg, "user-msg");
+  userInput.value = "";
+
+  const typingDiv = document.createElement("div");
+  typingDiv.classList.add("typing");
+  typingDiv.innerText = "TrishaBot is typing...";
+  chatMessages.appendChild(typingDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  try {
+    const promptToSend = `Based on the current temperature ${currentTemp}°C, ${msg}`;
+    console.log("📨 Prompt to backend:", promptToSend); // 🔍 ADD THIS
+
+    const response = await fetch("https://ai-powered-weather-app-5i4j.onrender.com/gemini", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: promptToSend })
+    });
+
+    const data = await response.json();
+    console.log("🟡 Response from backend:", data); // 🔍 ADD THIS
+
+    chatMessages.removeChild(typingDiv);
+    addMessage("TrishaBot", data.reply || "I’m not sure what to say 🤷‍♀️", "bot-msg");
+  } catch (err) {
+    console.error("❌ Error calling Gemini API:", err); // 🔍 ADD THIS
+    chatMessages.removeChild(typingDiv);
+    addMessage("TrishaBot", "Something went wrong 😢", "bot-msg");
+  }
+};
+
+
+
+
+
+  e.preventDefault();
+  const msg = userInput.value.trim();
+  if (!msg) return;
+
   addMessage("You", msg, "user-msg");
   userInput.value = "";
 
