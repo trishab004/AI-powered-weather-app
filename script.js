@@ -1,5 +1,5 @@
 let currentTemp = null; // store temperature
-
+ 
 const weatherCard = document.getElementById("weatherCard");
 
 function getWeatherEmoji(desc) {
