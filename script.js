@@ -65,12 +65,12 @@ sendBtn.onclick = async () => {
   // Typing indicator
   const typingDiv = document.createElement("div");
   typingDiv.classList.add("typing");
-  typingDiv.innerText = "TrishaBot is typing...";
+  typingDiv.innerText = "WeatherBot is typing...";
   chatMessages.appendChild(typingDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 
   try {
-    const response = await fetch("https://your-render-backend-url.com/gemini", {
+    const response = await fetch("https://ai-powered-weather-app-5i4j.onrender.com", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
